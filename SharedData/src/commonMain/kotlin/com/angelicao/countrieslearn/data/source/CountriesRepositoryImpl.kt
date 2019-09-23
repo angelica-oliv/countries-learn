@@ -1,16 +1,20 @@
 package com.angelicao.countrieslearn.com.angelicao.countrieslearn.data.source
 
+import com.angelicao.countrieslearn.com.angelicao.countrieslearn.coroutines.MainScopeCommon
+import com.angelicao.countrieslearn.com.angelicao.countrieslearn.coroutines.dispatcherRepository
 import com.angelicao.countrieslearn.com.angelicao.countrieslearn.data.Country
 import com.angelicao.countrieslearn.com.angelicao.countrieslearn.data.Result
 import kotlinx.coroutines.*
+
 import kotlin.coroutines.CoroutineContext
 
 class CountriesRepositoryImpl(
     private val dispatcher: CoroutineDispatcher,
-    private val job: Job): CountriesRepository, CoroutineScope {
+    private val job: Job
+): CountriesRepository, CoroutineScope {
 
     constructor() : this(
-        Dispatchers.Default,
+        dispatcherRepository,
         Job()
     )
 
@@ -29,7 +33,7 @@ class CountriesRepositoryImpl(
     }
 
     fun getCountriesAsync(responseCallback: ResponseCallback<String>) {
-        GlobalScope.launch {
+        MainScopeCommon().launch {
             responseCallback.onResponse((getCountries() as Result.Success<List<String>>).data.toString())
         }
     }

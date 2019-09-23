@@ -1,6 +1,1 @@
-pluginManagement {
-    repositories {
-        jcenter()
-        gradlePluginPortal()
-    }
-}
+enableFeaturePreview("GRADLE_METADATA")

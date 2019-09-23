@@ -1,2 +1,4 @@
 include ':app', 'SharedData'
 rootProject.name='countries-learn'
+
+enableFeaturePreview('GRADLE_METADATA')
