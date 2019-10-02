@@ -23,6 +23,7 @@ kotlin {
     jvm("android")
 
     sourceSets["commonMain"].dependencies {
+        implementation(project(":sharednetwork"))
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.1")
     }

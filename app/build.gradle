@@ -21,6 +21,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude "META-INF/kotlinx-coroutines-core.kotlin_module"
+    }
 }
 
 dependencies {
