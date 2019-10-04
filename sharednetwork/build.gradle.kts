@@ -25,7 +25,7 @@ kotlin {
 
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-        implementation("io.ktor:ktor-client-core:1.0.1")
+        implementation("io.ktor:ktor-client-core:1.2.5")
 
         implementation (kotlin("stdlib-common"))
         implementation ("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.13.0")
@@ -33,9 +33,15 @@ kotlin {
 
     sourceSets["androidMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib")
-        api("io.ktor:ktor-client-android:1.0.1")
+        implementation("io.ktor:ktor-client-android:1.2.5")
 
         implementation(kotlin("stdlib-jdk8"))
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.13.0")
+    }
+
+    sourceSets["iosMain"].dependencies {
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:0.13.0")
+        implementation("io.ktor:ktor-client-ios:1.2.5")
+        implementation("io.ktor:ktor-client-core-native:1.2.5")
     }
 }
