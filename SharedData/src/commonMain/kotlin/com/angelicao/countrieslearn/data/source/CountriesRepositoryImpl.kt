@@ -33,9 +33,9 @@ class CountriesRepositoryImpl(
         }
     }
 
-    fun getCountriesAsync(responseCallback: ResponseCallback<String>) {
+    fun getCountriesAsync(responseCallback: ResponseCallback<List<Country>>) {
         MainScopeCommon().launch {
-            responseCallback.onResponse((getCountries() as Result.Success<List<String>>).data.toString())
+            responseCallback.onResponse((getCountries() as Result.Success<List<Country>>).data)
         }
     }
 }

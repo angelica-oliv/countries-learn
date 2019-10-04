@@ -10,32 +10,41 @@ import UIKit
 import SharedData
 
 class ViewController: UIViewController {
-
+    private let cellIdentifier = "CellIdentifier"
+    @IBOutlet weak var tableView: UITableView!
+    private var countries: [Country] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let countriesRepo = CountriesRepositoryImpl()
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
-        label.center = CGPoint(x: 160, y: 285)
-        label.textAlignment = .center
-        label.font = label.font.withSize(25)
         ActualKt.showHelloCoroutine()
-        countriesRepo.getCountriesAsync(responseCallback: CountriesCallback(label: label))
-        view.addSubview(label)
+        countriesRepo.getCountriesAsync(responseCallback: self)
     }
-
-
 }
 
-class CountriesCallback: ResponseCallback {
-    let label: UILabel
-    init(label: UILabel) {
-        self.label = label
-    }
+extension ViewController: ResponseCallback {
     func onResponse(response: Any?) {
-        label.text = (response as! String)
+        guard let countries = response as? [Country] else { return }
+        self.countries = countries
     }
-    
-    
 }
 
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return countries.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? CountryCell else {
+            return UITableViewCell()
+        }
+        
+        cell.configure(country: countries[indexPath.row])
+        return cell
+    }
+}
