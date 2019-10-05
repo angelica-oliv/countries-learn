@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         let countriesRepo = CountriesRepositoryImpl()
-        ActualKt.showHelloCoroutine()
+        
         countriesRepo.getCountriesAsync(responseCallback: self)
     }
 }
