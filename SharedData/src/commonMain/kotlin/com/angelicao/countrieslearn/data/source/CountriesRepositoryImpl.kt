@@ -16,26 +16,5 @@ class CountriesRepositoryImpl(
     private val job: Job
 ): CountriesRepository, CoroutineScope {
 
-    constructor() : this(
-        CountriesApiImpl(),
-        dispatcherRepository,
-        Job()
-    )
 
-    override val coroutineContext: CoroutineContext
-        get() = job + dispatcher
-
-    override suspend fun getCountries(): Result<List<Country>> {
-        return withContext(context = dispatcher) {
-            Result.Success(
-                countriesApi.getAllCountries().map { Country(it.name, it.capital, it.region) }
-            )
-        }
-    }
-
-    fun getCountriesAsync(responseCallback: ResponseCallback<List<Country>>) {
-        MainScopeCommon().launch {
-            responseCallback.onResponse((getCountries() as Result.Success<List<Country>>).data)
-        }
-    }
 }

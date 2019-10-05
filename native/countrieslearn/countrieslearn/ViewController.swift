@@ -20,19 +20,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let countriesRepo = CountriesRepositoryImpl()
-        ActualKt.showHelloCoroutine()
-        countriesRepo.getCountriesAsync(responseCallback: self)
+
+        //Instantiate repository
     }
 }
 
-extension ViewController: ResponseCallback {
-    func onResponse(response: Any?) {
-        guard let countries = response as? [Country] else { return }
-        self.countries = countries
-    }
-}
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -18,7 +18,7 @@ class CountriesViewModel(private val countriesRepository: CountriesRepository): 
     fun getCountries() {
         _countriesListResult.value = Result.Loading
         viewModelScope.launch {
-            _countriesListResult.value = countriesRepository.getCountries()
+            //Request data
         }
     }
 
